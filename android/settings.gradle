@@ -1,0 +1,4 @@
+rootProject.name = 'demoBuro'
+include ':facialcapturecontroller-release', ':facialcapturescience-release', ':facialcapturesciencecrypto-release', ':facialcapturescienceface-release', ':facialcapturescienceliveness-release', ':api-release', ':imageutils-release', ':mibidata-release', ':misnapcamera-release', ':sanselan-release', ':facialcaptureworkflow-release'
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'
