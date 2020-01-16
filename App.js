@@ -39,7 +39,7 @@ export default class Test extends Component {
       
           <SafeAreaView style={{flex:1,justifyContent:'center',alignItems:'center'}}>
             <Image source={{uri:imageLoad}} style={{width:100,height:100}}/>
-            <Button onPress={blessStart} title="Iniciar"/>
+            <Button onPress={blessStart} title="Iniciar Facial"/>
           </SafeAreaView>
      
     )
