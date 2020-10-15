@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Image, View, NativeModules,Platform,SafeAreaView,Button} from 'react-native'
+import {Image, View, NativeModules,Platform,SafeAreaView,Button,StyleSheet} from 'react-native'
 
 
 
@@ -89,12 +89,19 @@ export default class Test extends Component {
       
           <SafeAreaView style={{flex:1,justifyContent:'center',alignItems:'center'}}>
             <Image source={imageLoad} style={{width:200,height:200}}/>
-            <Button onPress={blessStart} title="Selfie"/>
-            <Button onPress={()=>Platform.OS === "ios" ? bntIneIOS('front') : btnAndroid('front')} title="Ine Front"/>
-            <Button onPress={()=>Platform.OS === "ios" ? bntIneIOS('back') : btnAndroid('back')} title="Ine Back"/>
+            <Button style={styles.btnStyles} onPress={blessStart} title="Selfie"/>
+            <Button style={styles.btnStyles} onPress={()=>Platform.OS === "ios" ? bntIneIOS('front') : btnAndroid('front')} title="Ine Front"/>
+            <Button style={styles.btnStyles} onPress={()=>Platform.OS === "ios" ? bntIneIOS('back') : btnAndroid('back')} title="Ine Back"/>
 
           </SafeAreaView>
      
     )
   }
 }
+
+const styles = StyleSheet.create({
+  btnStyles:{
+    marginTop:5,
+    marginBottom:5,
+  }
+})
