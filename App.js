@@ -24,22 +24,75 @@ export default class Test extends Component {
     }else{
 
       //esto es apenas la promesa para poder utilizar lo en IOS
-      var onFacial = NativeModules.Facial;
-      onFacial.startFacial('test ', 'Test conexion');
+      NativeModules.Facial.startFacial((error, events) => {
+        if (error) {
+          console.log('error',error);
+          
+        } else {
+         console.log('succe')
+         let imageLoad = {uri:`data:image/jpeg;base64,${events}`}
+         
+         this.setState({imageLoad})
+        }
+      });
     }
+  }
 
-   
-    
+  bntIneIOS=(type)=>{
+    const cardRead =  NativeModules.ReaderCardID
+    if(type === "front"){
+        cardRead.startReaderFront(
+          (cardFront) => {
+            let imageLoad = {uri:'data:image/jpeg;base64,' + cardFront}
+             this.setState({imageLoad})
+          },
+          (error)=>{
+            console.log('error',error);
+          })
+      }else{
+        cardRead.startReaderBack(
+          (cardFront) => {
+            let imageLoad = {uri:'data:image/jpeg;base64,' + cardFront}
+            this.setState({imageLoad})
+          },
+          (error)=>{
+            console.log('error',error);
+          })
+      }
+  }
+  btnAndroid=(type)=>{
+    if(type === 'front'){
+      NativeModules.ReaderCardID.startReaderFront().then(infoCard=>{
+      
+        let value = JSON.parse(infoCard)
+        let imageLoad = {uri:value.image}
+        this.setState({imageLoad})
+      }).catch(err=>{
+        console.log('errror',err)
+      })
+    }else{
+      NativeModules.ReaderCardID.startReaderBack().then(infoCard=>{
+      
+        let value = JSON.parse(infoCard)
+        let imageLoad = {uri:value.image}
+        this.setState({imageLoad})
+      }).catch(err=>{
+        console.log('errror',err)
+      })
+    }
   }
   
   render() {
-      let {blessStart} = this
+      let {blessStart,bntIneIOS,btnAndroid} = this
       let { imageLoad} = this.state
     return(
       
           <SafeAreaView style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-            <Image source={{uri:imageLoad}} style={{width:100,height:100}}/>
-            <Button onPress={blessStart} title="Iniciar"/>
+            <Image source={imageLoad} style={{width:200,height:200}}/>
+            <Button onPress={blessStart} title="Selfie"/>
+            <Button onPress={()=>Platform.OS === "ios" ? bntIneIOS('front') : btnAndroid('front')} title="Ine Front"/>
+            <Button onPress={()=>Platform.OS === "ios" ? bntIneIOS('back') : btnAndroid('back')} title="Ine Back"/>
+
           </SafeAreaView>
      
     )

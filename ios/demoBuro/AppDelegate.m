@@ -10,6 +10,8 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <MiSnapLiveness/MiSnapLiveness.h>
+
 
 @implementation AppDelegate
 
